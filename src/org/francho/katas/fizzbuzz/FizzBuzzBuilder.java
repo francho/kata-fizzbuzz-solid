@@ -3,28 +3,27 @@ package org.francho.katas.fizzbuzz;
 import org.francho.katas.fizzbuzz.rules.KataRule;
 import org.francho.katas.fizzbuzz.rules.KataRules;
 
+import java.security.InvalidParameterException;
+
 public class FizzBuzzBuilder {
 
     private final KataRules rules;
-    private String value = null;
 
-    FizzBuzzBuilder(int number) {
-        rules = new KataRules();
-        build(number);
+    FizzBuzzBuilder(KataRules rules) {
+        if(rules == null) {
+            throw new InvalidParameterException("rules cannot be null");
+        }
+
+        this.rules = rules;
     }
 
-    public String build(int number) {
-        value = "";
+    public String build(Integer number) {
+        String value = "";
 
         for(KataRule rule : rules) {
             value += rule.run(value,number);
         }
 
-        return value;
-    }
-
-    @Override
-    public String toString() {
         return value;
     }
 }

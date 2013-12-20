@@ -1,11 +1,17 @@
 package org.francho.katas.fizzbuzz;
 
 
+import org.francho.katas.fizzbuzz.rules.KataRules;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.security.InvalidParameterException;
 
 import static junit.framework.Assert.assertEquals;
 
 public class FizzBuzzBuilderTest {
+
+    private FizzBuzzBuilder fizzBuzzBuilder;
 
     private static final int DIVISIBLE_BY_THREE = 6;
     private static final int DIVISIBLE_BY_FIVE = 10;
@@ -14,48 +20,50 @@ public class FizzBuzzBuilderTest {
     private static final int CONTAINS_THREE = 38;
     private static final int CONTAINS_FIVE = 52;
 
+    @Before
+    public void setUp() {
+        this.fizzBuzzBuilder = new FizzBuzzBuilder(new KataRules());
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    public void needsRulesToRun() {
+        new FizzBuzzBuilder(null);
+    }
 
     @Test
     public void shouldSayTheNumberByDefault() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(EVERY_ELSE);
-
         final String expected = Integer.toString(EVERY_ELSE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(EVERY_ELSE);
         assertEquals(expected, actual);
     }
 
     @Test
     public void shouldSayFizzIfDivisibleByThree() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(DIVISIBLE_BY_THREE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(DIVISIBLE_BY_THREE);
         assertEquals(FizzBuzzContract.FIZZ, actual);
     }
 
     @Test
     public void shouldSayFizzIfDivisibleByFive() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(DIVISIBLE_BY_FIVE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(DIVISIBLE_BY_FIVE);
         assertEquals(FizzBuzzContract.BUZZ, actual);
     }
 
     @Test
     public void shouldSayFizzBuzIfDivisibleByThreeAndFive() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(DIVISIBLE_BY_THREE_AND_FIVE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(DIVISIBLE_BY_THREE_AND_FIVE);
         assertEquals(FizzBuzzContract.FIZZ_BUZZ, actual);
     }
 
     @Test
     public void shouldSayFizzIfContainsThree() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(CONTAINS_THREE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(CONTAINS_THREE);
         assertEquals(FizzBuzzContract.FIZZ, actual);
     }
 
     @Test
     public void shouldSayBuzzIfContainsFive() {
-        FizzBuzzBuilder fizzBuzzBuilder = new FizzBuzzBuilder(CONTAINS_FIVE);
-        final String actual = fizzBuzzBuilder.toString();
+        final String actual = fizzBuzzBuilder.build(CONTAINS_FIVE);
         assertEquals(FizzBuzzContract.BUZZ, actual);
     }
 }
