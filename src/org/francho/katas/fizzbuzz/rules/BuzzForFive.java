@@ -8,11 +8,11 @@ public class BuzzForFive implements KataRule {
         return (divisibleByFive(number) || containsFive(number)) ? FizzBuzzContract.BUZZ : "";
     }
 
-    private boolean containsFive(Integer number) {
+    private Boolean containsFive(Integer number) {
         return number.toString().contains("5");
     }
 
-    private boolean divisibleByFive(Integer number) {
+    private Boolean divisibleByFive(Integer number) {
         return number % 5 == 0;
     }
 }

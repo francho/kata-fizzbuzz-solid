@@ -8,11 +8,11 @@ public class FizzForThree implements KataRule {
         return (containsThree(number) || divisibleByThree(number)) ? FizzBuzzContract.FIZZ : "";
     }
 
-    private boolean containsThree(Integer number) {
+    private Boolean containsThree(Integer number) {
         return number.toString().contains("3");
     }
 
-    private boolean divisibleByThree(Integer number) {
+    private Boolean divisibleByThree(Integer number) {
         return (number % 3 == 0);
     }
 }
